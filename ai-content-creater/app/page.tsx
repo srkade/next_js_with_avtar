@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-
+import SearchSection from "./dashboard/_components/SearchSection";
+import TemplateSection from "./dashboard/_components/TemplateSection";
 export default function Home() {
   return (
-    <>
-    <h1>Subscribe To Shree Ade channel</h1>
-    <Button variant="outline" >Subscribe</Button>
-    </>
+    <div>
+      {/* search section */}
+      <SearchSection/>
+      
+
+      {/* Template List Section */}
+      <TemplateSection/>
+    </div>
   );
 }
