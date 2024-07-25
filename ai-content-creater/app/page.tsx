@@ -1,15 +1,18 @@
-import { Button } from "@/components/ui/button";
+'use client'
+
+import React from 'react'
 import SearchSection from "./dashboard/_components/SearchSection";
 import TemplateSection from "./dashboard/_components/TemplateSection";
+import { useState } from "react";
 export default function Home() {
-  return (
+  const [userSearchInput,setUserSearchInput]=useState<string>()
+  return ( 
     <div>
       {/* search section */}
-      <SearchSection/>
-      
-
+      <SearchSection onSearchInput={(value:string)=>setUserSearchInput(value)} />
       {/* Template List Section */}
-      <TemplateSection/>
+      <TemplateSection userSearchInput={userSearchInput} />
     </div>
-  );
+  )
+  
 }
