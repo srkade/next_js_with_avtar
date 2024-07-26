@@ -1,15 +1,43 @@
-import React from 'react'
-import { TEMPLATE } from './TemplateSection'
-import Image from 'next/image'
+import Templates from '@/app/(data)/Templates'
+import React, { useEffect, useState } from 'react'
+import TemplatesCards from './TemplatesCards'
 
-function TemplatesCards(item:TEMPLATE) {
+export interface TEMPLATE{
+  name: string,
+  desc: string,
+  icon: string,
+  category: string,
+  slug: string,
+  aiPrompt: string,
+  form?:FORM[]
+}
+export interface FORM{
+  label: string,
+  field: string,
+  name: string,
+  required?:boolean
+}
+
+function TemplateSection({userSearchInput}:any) {
+  const [templateList,setTemplateList]=useState(Templates)
+
+  useEffect(()=>{
+    if(userSearchInput){
+      const filterData=Templates.filter(item=>item.name.toLowerCase().includes(userSearchInput.toLowerCase()));
+      setTemplateList(filterData)
+    }else{
+      setTemplateList(Templates)
+    }
+  },[userSearchInput])
   return (
-    <div className='p-5 shadow-md rounded-md bg-white flex flex-col gap-3 cursor-pointer' >
-      <Image src={item.icon} alt='icon' width={50} height={50} />
-      <h2 className='font-medium text-lg' >{item.name}</h2>
-      <p className='text-gray-500 line-clamp-3' >{item.desc}</p>
+    <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5'>
+      {
+        templateList.map((item:TEMPLATE, index:number) => {
+          return <TemplatesCards {...item} />
+        })
+      }
     </div>
   )
 }
 
-export default TemplatesCards
+export default TemplateSection
